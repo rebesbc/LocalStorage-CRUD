@@ -70,7 +70,19 @@ function AddBook(){
             booksList = JSON.parse(localStorage.getItem("booksList"))
         }
 
+        var myId;
+        if (localStorage.getItem('books')) {
+            myId = parseInt(localStorage.getItem('books')) + 1;
+            localStorage.setItem('books', myId);
+        } 
+        else 
+        {
+            localStorage.setItem('books', 1);
+            myId = localStorage.getItem('books');
+        }
+
         booksList.push({
+            id : myId,
             title : title,
             author : author,
             publisher : publisher,
