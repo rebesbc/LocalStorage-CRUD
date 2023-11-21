@@ -101,3 +101,45 @@ function deleteBook(index){
         localStorage.setItem("booksList", JSON.stringify(booksList));
         showBooks();
 }
+
+function updateBook(index){
+    // Submit button hides and Update button will appear available
+    document.getElementById("Submit").style.display = "none";
+    document.getElementById("Update").style.display = "block";
+
+    var booksList;
+        if(localStorage.getItem("booksList") == null){
+            booksList = [];
+        }
+        else{
+            booksList = JSON.parse(localStorage.getItem("booksList"))
+        }
+
+        document.getElementById("title").value = booksList[index].title;
+        document.getElementById("author").value = booksList[index].author;
+        document.getElementById("publisher").value = booksList[index].publisher;
+        document.getElementById("isbn").value = booksList[index].isbn;
+        document.getElementById("release_date").value = booksList[index].release_date;
+
+        document.querySelector("#Update").onclick = function(){
+            if(validateForm() == true){
+                booksList[index].title = document.getElementById("title").value;
+                booksList[index].author = document.getElementById("author").value;
+                booksList[index].publisher = document.getElementById("publisher").value;
+                booksList[index].isbn = document.getElementById("isbn").value;
+                booksList[index].release_date = document.getElementById("release_date").value;
+
+                localStorage.setItem("booksList", JSON.stringify(booksList));
+                showBooks();
+
+                document.getElementById("title").value = "";
+                document.getElementById("author").value = "";
+                document.getElementById("publisher").value = "";
+                document.getElementById("isbn").value = "";
+                document.getElementById("release_date").value = "";
+
+                document.getElementById("Submit").style.display = "block";
+                document.getElementById("Update").style.display = "none";
+            }
+        }
+}
