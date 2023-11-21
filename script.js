@@ -3,7 +3,6 @@ function validateForm(){
     var author = document.getElementById("author").value;
     var publisher = document.getElementById("publisher").value;
     var isbn = document.getElementById("isbn").value;
-    // var release_date = document.getElementById("release_date").value;
 
     if(title == ""){
         alert("Title is required");
@@ -40,7 +39,7 @@ function showBooks(){
     var html = "";
     booksList.forEach(function (element, index){
         html += "<tr>";
-        html += "<td>" + index + "</td>";
+        html += "<td>" + (index + 1) + "</td>";
         html += "<td>" + element.title + "</td>";
         html += "<td>" + element.author + "</td>";
         html += "<td>" + element.publisher + "</td>";
@@ -54,3 +53,38 @@ function showBooks(){
 }
 
 document.onload = showBooks();
+
+function AddBook(){
+    if(validateForm() == true){
+        var title = document.getElementById("title").value;
+        var author = document.getElementById("author").value;
+        var publisher = document.getElementById("publisher").value;
+        var isbn = document.getElementById("isbn").value;
+        var release_date = document.getElementById("release_date").value;
+
+        var booksList;
+        if(localStorage.getItem("booksList") == null){
+            booksList = [];
+        }
+        else{
+            booksList = JSON.parse(localStorage.getItem("booksList"))
+        }
+
+        booksList.push({
+            id : booksList.length + 1,
+            title : title,
+            author : author,
+            publisher : publisher,
+            isbn : isbn,
+            release_date : release_date
+        });
+
+        localStorage.setItem("booksList", JSON.stringify(booksList));
+        showBooks();
+        document.getElementById("title").value = "";
+        document.getElementById("author").value = "";
+        document.getElementById("publisher").value = "";
+        document.getElementById("isbn").value = "";
+        document.getElementById("release_date").value = "";
+    }
+}
