@@ -71,7 +71,6 @@ function AddBook(){
         }
 
         booksList.push({
-            id : booksList.length + 1,
             title : title,
             author : author,
             publisher : publisher,
@@ -87,4 +86,18 @@ function AddBook(){
         document.getElementById("isbn").value = "";
         document.getElementById("release_date").value = "";
     }
+}
+
+function deleteBook(index){
+    var booksList;
+        if(localStorage.getItem("booksList") == null){
+            booksList = [];
+        }
+        else{
+            booksList = JSON.parse(localStorage.getItem("booksList"))
+        }
+
+        booksList.splice(index, 1);
+        localStorage.setItem("booksList", JSON.stringify(booksList));
+        showBooks();
 }
